@@ -3831,13 +3831,6 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
 		goto failed_mount;
 	}
 
-	if (le16_to_cpu(sbi->s_es->s_reserved_gdt_blocks) > (blocksize / 4)) {
-		ext4_msg(sb, KERN_ERR,
-			 "Number of reserved GDT blocks insanely large: %d",
-			 le16_to_cpu(sbi->s_es->s_reserved_gdt_blocks));
-		goto failed_mount;
-	}
-
 	if (sb->s_blocksize != blocksize) {
 		/* Validate the filesystem blocksize */
 		if (!sb_set_blocksize(sb, blocksize)) {
@@ -4077,7 +4070,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
 		struct block_device *whole = sb->s_bdev->bd_contains;
 
 		whole->bd_fscallback_func = ext4_bd_reset_callback_fn;
-		sb->s_bdev->bd_private = 
+		sb->s_bdev->bd_private =
 			(unsigned long) whole->bd_fscallback_func;
 
 		sbi->s_bd_reset_cnt = le32_to_cpu(es->s_bd_reset_cnt);
@@ -4327,7 +4320,7 @@ no_journal:
 	}
 
 	block = ext4_count_free_clusters(sb);
-	ext4_free_blocks_count_set(sbi->s_es, 
+	ext4_free_blocks_count_set(sbi->s_es,
 				   EXT4_C2B(sbi, block));
 	err = percpu_counter_init(&sbi->s_freeclusters_counter, block,
 				  GFP_KERNEL);
@@ -4521,7 +4514,7 @@ static void ext4_init_journal_params(struct super_block *sb, journal_t *journal)
 	part = sb->s_bdev->bd_part;
 	if (part->info && !strncmp(part->info->volname, "USERDATA", 8)) {
 		journal->j_flags |= JBD2_JOURNAL_TAG;
-		printk("Setting journal tag on volname[%s]\n", 
+		printk("Setting journal tag on volname[%s]\n",
 			part->info->volname);
 	} else if (!part->info && journal->j_maxlen >= 32768) {
 		/* maybe dm device &&  journal size > 128MB */
