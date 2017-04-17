@@ -154,7 +154,7 @@ static int mmc_bus_suspend(struct device *dev)
 	struct mmc_driver *drv = to_mmc_driver(dev->driver);
 	struct mmc_card *card = mmc_dev_to_card(dev);
 	struct mmc_host *host = card->host;
-	int ret;
+	int ret = 0;
 
 	if (dev->driver && drv->suspend) {
 		ret = drv->suspend(card);
