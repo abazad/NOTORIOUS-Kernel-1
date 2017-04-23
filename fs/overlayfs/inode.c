@@ -338,31 +338,28 @@ struct inode *ovl_d_select_inode(struct dentry *dentry, unsigned file_flags)
 	int err;
 	struct path realpath;
 	enum ovl_path_type type;
-	bool want_write = false;
+
+	if (d_is_dir(dentry))
+		return d_backing_inode(dentry);
 
 	type = ovl_path_real(dentry, &realpath);
 	if (ovl_open_need_copy_up(file_flags, type, realpath.dentry)) {
-		want_write = true;
 		err = ovl_want_write(dentry);
 		if (err)
-			goto out;
+			return ERR_PTR(err);
 
 		if (file_flags & O_TRUNC)
 			err = ovl_copy_up_last(dentry, NULL, true);
 		else
 			err = ovl_copy_up(dentry);
+		ovl_drop_write(dentry);
 		if (err)
-			goto out_drop_write;
+			return ERR_PTR(err);
 
 		ovl_path_upper(dentry, &realpath);
 	}
 
 	err = d_backing_inode(realpath.dentry);
-out_drop_write:
-	if (want_write)
-		ovl_drop_write(dentry);
-out:
-	return ERR_PTR(err);
 }
 
 static const struct inode_operations ovl_file_inode_operations = {
