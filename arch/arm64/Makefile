@@ -10,11 +10,11 @@
 #
 # Copyright (C) 1995-2001 by Russell King
 
-ifeq ($(CONFIG_RELOCATABLE_KERNEL), y) 
+ifeq ($(CONFIG_RELOCATABLE_KERNEL), y)
 LDFLAGS_vmlinux	:=-p --no-undefined -X -pie -Bsymbolic
-else 
+else
 LDFLAGS_vmlinux	:=-p --no-undefined -X
-endif 
+endif
 
 CPPFLAGS_vmlinux.lds = -DTEXT_OFFSET=$(TEXT_OFFSET)
 OBJCOPYFLAGS	:=-O binary -R .note -R .note.gnu.build-id -R .comment -S
@@ -25,7 +25,9 @@ LIBGCC 		:= $(shell $(CC) $(KBUILD_CFLAGS) -print-libgcc-file-name)
 KBUILD_DEFCONFIG := defconfig
 
 KBUILD_CFLAGS	+= -mgeneral-regs-only
+KBUILD_CFLAGS	+= $(call cc-option, -mpc-relative-literal-loads)
 KBUILD_CFLAGS	+= -fno-pic
+
 ifeq ($(CONFIG_CPU_BIG_ENDIAN), y)
 KBUILD_CPPFLAGS	+= -mbig-endian
 AS		+= -EB
