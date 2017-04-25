@@ -96,7 +96,7 @@ static struct tcp_md5sig_key *tcp_v6_md5_do_lookup(struct sock *sk,
 #endif
 
 #ifndef CONFIG_MPTCP
-static 
+static
 #endif
 void inet6_sk_rx_dst_set(struct sock *sk, const struct sk_buff *skb)
 {
@@ -114,7 +114,7 @@ void inet6_sk_rx_dst_set(struct sock *sk, const struct sk_buff *skb)
 }
 
 #ifndef CONFIG_MPTCP
-static 
+static
 #endif
 void tcp_v6_hash(struct sock *sk)
 {
@@ -134,7 +134,7 @@ void tcp_v6_hash(struct sock *sk)
 }
 
 #ifndef CONFIG_MPTCP
-static 
+static
 #endif
 __u32 tcp_v6_init_sequence(const struct sk_buff *skb)
 {
@@ -145,7 +145,7 @@ __u32 tcp_v6_init_sequence(const struct sk_buff *skb)
 }
 
 #ifndef CONFIG_MPTCP
-static 
+static
 #endif
 int tcp_v6_connect(struct sock *sk, struct sockaddr *uaddr,
 			  int addr_len)
@@ -352,7 +352,7 @@ failure:
 }
 
 #ifndef CONFIG_MPTCP
-static 
+static
 #endif
 void tcp_v6_mtu_reduced(struct sock *sk)
 {
@@ -553,7 +553,7 @@ out:
 
 
 #ifndef CONFIG_MPTCP
-static 
+static
 #endif
 int tcp_v6_send_synack(struct sock *sk, struct dst_entry *dst,
 			      struct flowi *fl,
@@ -596,7 +596,7 @@ done:
 
 
 #ifndef CONFIG_MPTCP
-static 
+static
 #endif
 void tcp_v6_reqsk_destructor(struct request_sock *req)
 {
@@ -867,7 +867,7 @@ struct request_sock_ops tcp6_request_sock_ops __read_mostly = {
 };
 
 #ifndef CONFIG_MPTCP
-static 
+static
 #endif
 const struct tcp_request_sock_ops tcp_request_sock_ipv6_ops = {
 	.mss_clamp	=	IPV6_MIN_MTU - sizeof(struct tcphdr) -
@@ -1009,7 +1009,7 @@ static void tcp_v6_send_response(struct sock *sk, struct sk_buff *skb, u32 seq,
 }
 
 #ifndef CONFIG_MPTCP
-static 
+static
 #endif
 void tcp_v6_send_reset(struct sock *sk, struct sk_buff *skb)
 {
@@ -1122,20 +1122,20 @@ static void tcp_v6_timewait_ack(struct sock *sk, struct sk_buff *skb)
 			data_ack, tcptw->tw_rcv_wnd >> tw->tw_rcv_wscale,
 			tcp_time_stamp + tcptw->tw_ts_offset,
 			tcptw->tw_ts_recent, tw->tw_bound_dev_if, tcp_twsk_md5_key(tcptw),
-			tw->tw_tclass, (tw->tw_flowlabel << 12), mptcp);
+			tw->tw_tclass, cpu_to_be32(tw->tw_flowlabel), mptcp);
 #else
 	tcp_v6_send_ack(sk, skb, tcptw->tw_snd_nxt, tcptw->tw_rcv_nxt,
 			tcptw->tw_rcv_wnd >> tw->tw_rcv_wscale,
 			tcp_time_stamp + tcptw->tw_ts_offset,
 			tcptw->tw_ts_recent, tw->tw_bound_dev_if, tcp_twsk_md5_key(tcptw),
-			tw->tw_tclass, (tw->tw_flowlabel << 12));
+			tw->tw_tclass, cpu_to_be32(tw->tw_flowlabel));
 #endif
 
 	inet_twsk_put(tw);
 }
 
 #ifndef CONFIG_MPTCP
-static 
+static
 #endif
 void tcp_v6_reqsk_send_ack(struct sock *sk, struct sk_buff *skb,
 				  struct request_sock *req)
@@ -1162,7 +1162,7 @@ void tcp_v6_reqsk_send_ack(struct sock *sk, struct sk_buff *skb,
 
 
 #ifndef CONFIG_MPTCP
-static 
+static
 #endif
 struct sock *tcp_v6_hnd_req(struct sock *sk, struct sk_buff *skb)
 {
@@ -1206,7 +1206,7 @@ struct sock *tcp_v6_hnd_req(struct sock *sk, struct sk_buff *skb)
 }
 
 #ifndef CONFIG_MPTCP
-static 
+static
 #endif
 int tcp_v6_conn_request(struct sock *sk, struct sk_buff *skb)
 {
@@ -1225,7 +1225,7 @@ drop:
 }
 
 #ifndef CONFIG_MPTCP
-static 
+static
 #endif
 struct sock *tcp_v6_syn_recv_sock(struct sock *sk, struct sk_buff *skb,
 					 struct request_sock *req,
@@ -1449,7 +1449,7 @@ out:
  * held.
  */
 #ifndef CONFIG_MPTCP
-static 
+static
 #endif
 int tcp_v6_do_rcv(struct sock *sk, struct sk_buff *skb)
 {
@@ -1896,7 +1896,7 @@ static void tcp_v6_early_demux(struct sk_buff *skb)
 }
 
 #ifndef CONFIG_MPTCP
-static 
+static
 #endif
 struct timewait_sock_ops tcp6_timewait_sock_ops = {
 	.twsk_obj_size	= sizeof(struct tcp6_timewait_sock),
@@ -1905,7 +1905,7 @@ struct timewait_sock_ops tcp6_timewait_sock_ops = {
 };
 
 #ifndef CONFIG_MPTCP
-static 
+static
 #endif
 const struct inet_connection_sock_af_ops ipv6_specific = {
 	.queue_xmit	   = inet6_csk_xmit,
@@ -1940,7 +1940,7 @@ static const struct tcp_sock_af_ops tcp_sock_ipv6_specific = {
  *	TCP over IPv4 via INET6 API
  */
 #ifndef CONFIG_MPTCP
-static 
+static
 #endif
 const struct inet_connection_sock_af_ops ipv6_mapped = {
 	.queue_xmit	   = ip_queue_xmit,
@@ -1994,7 +1994,7 @@ static int tcp_v6_init_sock(struct sock *sk)
 }
 
 #ifndef CONFIG_MPTCP
-static 
+static
 #endif
 void tcp_v6_destroy_sock(struct sock *sk)
 {
