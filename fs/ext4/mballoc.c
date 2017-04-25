@@ -2383,7 +2383,7 @@ int ext4_mb_alloc_groupinfo(struct super_block *sb, ext4_group_t ngroups)
 	}
 	sbi->s_group_info = new_groupinfo;
 	sbi->s_group_info_size = size / sizeof(*sbi->s_group_info);
-	ext4_debug("allocated s_groupinfo array for %d meta_bg's\n", 
+	ext4_debug("allocated s_groupinfo array for %d meta_bg's\n",
 		   sbi->s_group_info_size);
 	return 0;
 }
@@ -4819,17 +4819,12 @@ do_more:
 	    ((flags & EXT4_FREE_BLOCKS_METADATA) ||
 	     !ext4_should_writeback_data(inode))) {
 		struct ext4_free_data *new_entry;
-	retry:
-		new_entry = kmem_cache_alloc(ext4_free_data_cachep, GFP_NOFS);
-		if (!new_entry) {
 			/*
-			 * We use a retry loop because
-			 * ext4_free_blocks() is not allowed to fail.
+		 * We use __GFP_NOFAIL because ext4_free_blocks() is not allowed
+		 * to fail.
 			 */
-			cond_resched();
-			congestion_wait(BLK_RW_ASYNC, HZ/50);
-			goto retry;
-		}
+		new_entry = kmem_cache_alloc(ext4_free_data_cachep,
+				GFP_NOFS|__GFP_NOFAIL);
 		new_entry->efd_start_cluster = bit;
 		new_entry->efd_group = block_group;
 		new_entry->efd_count = count_clusters;
