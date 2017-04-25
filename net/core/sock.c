@@ -295,7 +295,7 @@ static const char *const af_family_slock_key_strings[AF_MAX+1] = {
   "slock-AF_NFC"   , "slock-AF_VSOCK"    ,"slock-AF_MAX"
 };
 #ifndef CONFIG_MPTCP
-static const 
+static const
 #endif
 
 char *const af_family_clock_key_strings[AF_MAX+1] = {
@@ -320,7 +320,7 @@ char *const af_family_clock_key_strings[AF_MAX+1] = {
  * so split the lock classes by using a per-AF key:
  */
 #ifndef CONFIG_MPTCP
-static 
+static
 #endif
 struct lock_class_key af_callback_keys[AF_MAX];
 
@@ -1275,7 +1275,7 @@ lenout:
  * (We also register the sk_lock with the lock validator.)
  */
 #ifndef CONFIG_MPTCP
-static inline 
+static inline
 #endif
 void sock_lock_init(struct sock *sk)
 {
@@ -1343,7 +1343,7 @@ void sk_prot_clear_portaddr_nulls(struct sock *sk, int size)
 EXPORT_SYMBOL(sk_prot_clear_portaddr_nulls);
 
 #ifndef CONFIG_MPTCP
-static 
+static
 #endif
 struct sock *sk_prot_alloc(struct proto *prot, gfp_t priority,
 		int family)

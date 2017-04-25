@@ -503,7 +503,7 @@ static inline void skb_drop_fraglist(struct sk_buff *skb)
 }
 
 #ifndef CONFIG_MPTCP
-static 
+static
 #endif
 void skb_clone_fraglist(struct sk_buff *skb)
 {
@@ -934,7 +934,7 @@ static void skb_headers_offset_update(struct sk_buff *skb, int off)
 }
 
 #ifndef CONFIG_MPTCP
-static 
+static
 #endif
 void copy_skb_header(struct sk_buff *new, const struct sk_buff *old)
 {
