@@ -276,7 +276,7 @@ static void nfs4_setup_readdir(u64 cookie, __be32 *verifier, struct dentry *dent
 	memset(&readdir->verifier, 0, sizeof(readdir->verifier));
 	if (cookie == 2)
 		return;
-	
+
 	/*
 	 * NFSv4 servers do not return entries for '.' and '..'
 	 * Therefore, we fake these entries here.  We let '.'
@@ -285,7 +285,7 @@ static void nfs4_setup_readdir(u64 cookie, __be32 *verifier, struct dentry *dent
 	 * instead of 1 or 2.
 	 */
 	start = p = kmap_atomic(*readdir->pages);
-	
+
 	if (cookie == 0) {
 		*p++ = xdr_one;                                  /* next */
 		*p++ = xdr_zero;                   /* cookie, first word */
@@ -298,7 +298,7 @@ static void nfs4_setup_readdir(u64 cookie, __be32 *verifier, struct dentry *dent
 		*p++ = htonl(8);              /* attribute buffer length */
 		p = xdr_encode_hyper(p, NFS_FILEID(dentry->d_inode));
 	}
-	
+
 	*p++ = xdr_one;                                  /* next */
 	*p++ = xdr_zero;                   /* cookie, first word */
 	*p++ = xdr_two;                   /* cookie, second word */
@@ -1499,7 +1499,7 @@ static int nfs4_open_recover_helper(struct nfs4_opendata *opendata, fmode_t fmod
 	nfs4_init_opendata_res(opendata);
 	ret = _nfs4_recover_proc_open(opendata);
 	if (ret != 0)
-		return ret; 
+		return ret;
 	newstate = nfs4_opendata_to_nfs4_state(opendata);
 	if (IS_ERR(newstate))
 		return PTR_ERR(newstate);
@@ -2721,13 +2721,13 @@ static bool nfs4_roc(struct inode *inode)
 	return pnfs_roc(inode);
 }
 
-/* 
- * It is possible for data to be read/written from a mem-mapped file 
+/*
+ * It is possible for data to be read/written from a mem-mapped file
  * after the sys_close call (which hits the vfs layer as a flush).
- * This means that we can't safely call nfsv4 close on a file until 
+ * This means that we can't safely call nfsv4 close on a file until
  * the inode is cleared. This in turn means that we are not good
- * NFSv4 citizens - we do not indicate to the server to update the file's 
- * share state even when we are done with one of the three share 
+ * NFSv4 citizens - we do not indicate to the server to update the file's
+ * share state even when we are done with one of the three share
  * stateid's in the inode.
  *
  * NOTE: Caller must be holding the sp->so_owner semaphore!
@@ -3057,15 +3057,13 @@ int nfs4_proc_get_rootfh(struct nfs_server *server, struct nfs_fh *fhandle,
 			 struct nfs_fsinfo *info,
 			 bool auth_probe)
 {
-	int status;
+	int status = 0;
 
-	if (auth_probe)
-		status = nfs4_do_find_root_sec(server, fhandle, info);
-	else {
+	if (!auth_probe)
 		status = nfs4_lookup_root(server, fhandle, info);
-		if (status == -NFS4ERR_WRONGSEC)
-			status = nfs4_do_find_root_sec(server, fhandle, info);
-	}
+
+	if (auth_probe || status == NFS4ERR_WRONGSEC)
+		status = nfs4_do_find_root_sec(server, fhandle, info);
 
 	if (status == 0)
 		status = nfs4_server_capabilities(server, fhandle);
@@ -3194,7 +3192,7 @@ static int nfs4_proc_getattr(struct nfs_server *server, struct nfs_fh *fhandle,
 	return err;
 }
 
-/* 
+/*
  * The file is not closed if it is opened due to the a request to change
  * the size of the file. The open call will not be needed once the
  * VFS layer lookup-intents are implemented.
@@ -3227,7 +3225,7 @@ nfs4_proc_setattr(struct dentry *dentry, struct nfs_fattr *fattr,
 		pnfs_commit_and_return_layout(inode);
 
 	nfs_fattr_init(fattr);
-	
+
 	/* Deal with open(O_TRUNC) */
 	if (sattr->ia_valid & ATTR_OPEN)
 		sattr->ia_valid &= ~(ATTR_MTIME|ATTR_CTIME);
@@ -3762,7 +3760,7 @@ static int _nfs4_proc_symlink(struct inode *dir, struct dentry *dentry,
 	data->arg.u.symlink.pages = &page;
 	data->arg.u.symlink.len = len;
 	data->arg.label = label;
-	
+
 	status = nfs4_do_create(dir, dentry, data);
 
 	nfs4_free_createdata(data);
@@ -5239,8 +5237,8 @@ int nfs4_proc_delegreturn(struct inode *inode, struct rpc_cred *cred, const nfs4
 #define NFS4_LOCK_MINTIMEOUT (1 * HZ)
 #define NFS4_LOCK_MAXTIMEOUT (30 * HZ)
 
-/* 
- * sleep, with exponential backoff, and retry the LOCK operation. 
+/*
+ * sleep, with exponential backoff, and retry the LOCK operation.
  */
 static unsigned long
 nfs4_set_lock_task_retry(unsigned long timeout)
@@ -7608,7 +7606,7 @@ static void nfs4_layoutget_done(struct rpc_task *task, void *calldata)
 			pnfs_mark_matching_lsegs_invalid(lo, &head, NULL);
 			spin_unlock(&inode->i_lock);
 			pnfs_free_lseg_list(&head);
-	
+
 			task->tk_status = 0;
 			rpc_restart_call_prepare(task);
 		}
