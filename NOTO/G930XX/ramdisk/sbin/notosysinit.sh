@@ -27,3 +27,7 @@ fi
 for FILE in /system/etc/init.d/*; do
 	sh $FILE >/dev/null
 done;
+
+# mediakill (Credits: lyapota)
+killall -9 android.process.media
+killall -9 mediaserver
