@@ -39,6 +39,9 @@ Module.symvers
 #
 # Top-level generic files
 #
+/NOTO/G930XX/split_img/
+/NOTO/G935XX/split_img/
+/NOTO_BUILD/
 /tags
 /TAGS
 /linux
