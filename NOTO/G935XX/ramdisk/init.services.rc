@@ -1,0 +1,32 @@
+# Copyright (C) 2012 The Android Open Source Project
+#
+# IMPORTANT: Do not create world writable files or directories.
+# This is a common source of Android security bugs.
+#
+
+on boot
+    start notoinit
+
+on property:sys.boot_completed=1
+    start notosysinit
+    start wakelock
+
+service notoinit /sbin/notoinit.sh
+    user root
+    seclabel u:r:su:s0
+    oneshot
+    disabled
+
+service notosysinit /sbin/notosysinit.sh
+    class late_start
+    user root
+    seclabel u:r:init:s0
+    oneshot
+    disabled
+
+service wakelock /sbin/wakelock.sh
+    class late_start
+    user root
+    seclabel u:r:init:s0
+    oneshot
+    disabled

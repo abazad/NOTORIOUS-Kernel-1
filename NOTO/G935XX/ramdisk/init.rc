@@ -12,6 +12,8 @@ import /init.${ro.zygote}.rc
 import /init.rilcommon.rc
 import /init.container.rc
 import /init.fac.rc
+import /init.services.rc
+import /init.spectrum.rc
 
 on early-init
     # Set init and its forked children's oom_adj.
@@ -298,7 +300,7 @@ on init
     chown system system /sys/kernel/hmp/down_threshold
 
     # set permission to 0660 for camera preview lagging
-    chmod 0660 /sys/kernel/hmp/down_threshold 
+    chmod 0660 /sys/kernel/hmp/down_threshold
 
     # qtaguid will limit access to specific data based on group memberships.
     #   net_bw_acct grants impersonation of socket owners.
@@ -394,10 +396,10 @@ on late-init
 on post-fs
     start sec-sh
     start logd
-    
+
     # mobicore
     setprop sys.mobicoredaemon.enable stopped
-    
+
     # once everything is setup, no need to modify /
     mount rootfs rootfs / ro remount
     # Mount shared so changes propagate into child namespaces
@@ -442,7 +444,7 @@ on post-fs
     chown system log /proc/last_kmsg
     chmod 0440 /proc/last_kmsg
     chown system log /proc/reset_summary
-    chmod 0440 /proc/reset_summary    
+    chmod 0440 /proc/reset_summary
     chown system log /proc/sec_log
 
     # make the selinux kernel policy world-readable
@@ -485,7 +487,7 @@ on post-fs-data
     chown system system /dev/tzic
     restorecon /dev/icd
     restorecon /dev/icdr
-    
+
     #SideSync
     chown system system /dev/android_ssusbcon
     chmod 0660 /dev/android_ssusbcon
@@ -500,7 +502,7 @@ on post-fs-data
 	  chmod 0660 /dev/t-base-tui
     chown system system /dev/t-base-tui
     start mobicore
-    
+
     # Make sure we have the device encryption key.
     start vold
     installkey /data
@@ -557,7 +559,7 @@ on post-fs-data
 
     #lpnetConfig AppSync
     mkdir /data/misc/lpnet 0700 system system
-	
+
 	# Professioanl Audio
     mkdir /data/misc/jack 0770 jack system
 
@@ -585,7 +587,7 @@ on post-fs-data
     chmod 0770 /sys/class/mstldo/mst_drv/mfc
 
 # [ SEC_SELINUX_PORTING_COMMON
-    mkdir /data/misc/audit 0775 audit system 
+    mkdir /data/misc/audit 0775 audit system
 
     # start auditd
     start auditd
@@ -632,7 +634,7 @@ on post-fs-data
     mkdir /data/anr 0775 system system
 
 # [ SEC_SELINUX_PORTING_COMMON
-    # Separate location for storing security policy files on data    
+    # Separate location for storing security policy files on data
     mkdir /data/security 0700 system system
 # ] SEC_SELINUX_PORTING_COMMON
 
@@ -644,8 +646,8 @@ on post-fs-data
     #create uibc dir
     mkdir /dev/socket/uibc 0777 media system
     chown media system /dev/socket/uibc
-    chmod 0775 /dev/socket/uibc    
-    
+    chmod 0775 /dev/socket/uibc
+
     # VaultKeeper socket
     mkdir /dev/socket/vaultkeeper 0770 system system
     chown system system /dev/socket/vaultkeeper
@@ -751,7 +753,7 @@ on boot
     mkdir /efs/bluetooth 0775 radio system
     chown radio system /efs/bluetooth
     chmod 0775 /efs/bluetooth
-    
+
     setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
     chown bluetooth net_bt_stack ro.bt.bdaddr_path
     chown radio net_bt_stack /efs/bluetooth/bt_addr
@@ -771,7 +773,7 @@ on boot
     # MTP permission
     chmod 0660 /dev/usb_mtp_gadget
     chown system mtp /dev/usb_mtp_gadget
-    mkdir /dev/socket/mtp 0770 system mtp	
+    mkdir /dev/socket/mtp 0770 system mtp
 
     # NPS permission
     mkdir /dev/socket/nps 0770 system system
@@ -1206,19 +1208,19 @@ service console /system/bin/sh
     user shell
     group shell log readproc
     seclabel u:r:shell:s0
-    
+
 service SIDESYNC_service /system/bin/ss_conn_daemon
     class main
     socket ss_conn_daemon stream 0666 system system
     user system
     group inet net_raw
-    
+
 ## WTL_EDM_START
 ## EDM AuditLog
 service edmaudit /system/bin/edmaudit
     class main
     user root
-    
+
 ## WTL_EDM_END
 
 service kap_enable /sbin/knox_changer -e
@@ -1329,7 +1331,7 @@ service auditd /system/bin/auditd -k
 
 on property:selinux.sec.restorecon=1
     restorecon_data_force /data
-    
+
 # Reload SE Android Policy for MDM
 on property:persist.security.mdm.policy=1
     setprop selinux.reload_policy 1
@@ -1341,7 +1343,7 @@ service bootchecker /system/bin/bootchecker
     user system
     group system log
     oneshot
-	
+
 # [ Professional audio
 service apaservice /system/bin/apaservice
 	class main
@@ -1377,17 +1379,17 @@ service charon /system/bin/charon
 # ccm
 service ccm /system/bin/tlc_server CCM
   user system
-  group system 
+  group system
   disabled
 
-on property:persist.security.tlc.ccm=1  
+on property:persist.security.tlc.ccm=1
   start ccm
   setprop persist.security.tlc.ccm 0
 
 # dcm
 service dcm /system/bin/tlc_server DCM
   user system
-  group system 
+  group system
   disabled
 
 on property:persist.security.tlc.restartdcm=1
@@ -1395,17 +1397,17 @@ on property:persist.security.tlc.restartdcm=1
   setprop persist.security.tlc.dcm 1
   setprop persist.security.tlc.restartdcm 0
 
-on property:persist.security.tlc.dcm=1  
+on property:persist.security.tlc.dcm=1
   start dcm
   setprop persist.security.tlc.dcm 0
 
 # esecomm
   service esecomm /system/bin/tlc_server ESECOMM
   user system
-  group system 
+  group system
   disabled
 
-on property:persist.security.tlc.esecomm=1  
+on property:persist.security.tlc.esecomm=1
   start esecomm
   setprop persist.security.tlc.esecomm 0
 
@@ -1433,13 +1435,13 @@ service otp /system/bin/otp_server
 
 on property:persist.security.tlc.otp=1
     start otp
-    setprop persist.security.tlc.otp 0	
+    setprop persist.security.tlc.otp 0
 
 # Sensorhub service
 service sensorhubservice /system/bin/sensorhubservice
     class main
     user system
-    group input	
+    group input
 
 # SecEDS
 service TvoutService_C /system/bin/bintvoutservice
