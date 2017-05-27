@@ -96,11 +96,24 @@ $BB mount -o remount,rw /;
 # Enable FSYNC
 	echo "N" > /sys/module/sync/parameters/fsync_enabled
 
+# Set VM Preferences
+  echo "0" > /proc/sys/vm/laptop_mode
+	echo "90" > /proc/sys/vm/dirty_ratio
+	echo "70" > /proc/sys/vm/dirty_background_ratio
+	echo "10" > /proc/sys/vm/vfs_cache_pressure
+	echo "1" > /proc/sys/vm/overcommit_memory
+	echo "0" > /proc/sys/vm/panic_on_oom
+	echo "0" > /proc/sys/kernel/panic_on_oops
+	echo "0" > /proc/sys/kernel/panic
+	echo "4096" > /proc/sys/vm/min_free_kbytes
+	echo "0" > /proc/sys/vm/oom_kill_allocating_task
+
 # Don't treat storage as rotational
 	echo 0 > /sys/block/mmcblk0/queue/rotational
 
-# Virtual Memory
-echo "1" > /proc/sys/vm/laptop_mode
+ # ENTROPY
+ echo "128" > /proc/sys/kernel/random/echo_wakeup_threshold
+ echo "1344" > /proc/sys/kernel/random/read_wakeup_threshold
 
 # Knox set to 0 on working system
 /sbin/resetprop -n ro.boot.warranty_bit "0"
@@ -143,6 +156,19 @@ su -c 'echo "temporary none" >> /sys/class/scsi_disk/0:0:0:0/cache_type'
 su -c 'echo "temporary none" >> /sys/class/scsi_disk/0:0:0:1/cache_type'
 su -c 'echo "temporary none" >> /sys/class/scsi_disk/0:0:0:2/cache_type'
 su -c 'echo "temporary none" >> /sys/class/scsi_disk/0:0:0:3/cache_type'
+
+# "97zipalignOnBoot" 
+for files in `find /data/app/ -name '*.apk'` ; do
+	zipalign -c 4 $files;
+	ZIPCHECK=$?;
+	if [ $ZIPCHECK -eq 1 ]; then
+			zipalign -f 4 $files /cache/$(basename $files);
+			if [ -e /cache/$(basename $files) ]; then
+				cp -f -p /cache/$(basename $files) $files
+				rm /cache/$(basename $files)
+			fi
+	fi;
+done;
 
 # Unmount
 $BB mount -t rootfs -o remount,rw rootfs;
