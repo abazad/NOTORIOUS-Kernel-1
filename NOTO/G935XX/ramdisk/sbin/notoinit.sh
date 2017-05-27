@@ -94,7 +94,7 @@ $BB mount -o remount,rw /;
 	echo 10 > /sys/block/sdd/queue/iosched/sleep_latency_multiple
 
 # Enable FSYNC
-	echo "N" > /sys/module/sync/parameters/fsync_enableds
+	echo "N" > /sys/module/sync/parameters/fsync_enabled
 
 # Don't treat storage as rotational
 	echo 0 > /sys/block/mmcblk0/queue/rotational
