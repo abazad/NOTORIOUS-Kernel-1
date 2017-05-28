@@ -59,39 +59,15 @@ $BB mount -o remount,rw /;
 
 # Set I/O Scheduler tweaks sdb
 	chmod 644 /sys/block/sdb/queue/scheduler
-  echo maple > /sys/block/sdb/queue/scheduler
-  echo 512 > /sys/block/sdb/queue/read_ahead_kb
-  echo 4 > /sys/block/sdb/queue/iosched/writes_starved
-	echo 16 > /sys/block/sdb/queue/iosched/fifo_batch
-	echo 350 > /sys/block/sdb/queue/iosched/sync_read_expire
-	echo 550 > /sys/block/sdb/queue/iosched/sync_write_expire
-	echo 250 > /sys/block/sdb/queue/iosched/async_read_expire
-	echo 450 > /sys/block/sdb/queue/iosched/async_write_expire
-	echo 10 > /sys/block/sdb/queue/iosched/sleep_latency_multiple
+  echo deadline > /sys/block/sdb/queue/scheduler
 
 # Set I/O Scheduler tweaks sdc
 	chmod 644 /sys/block/sdc/queue/scheduler
-	echo maple > /sys/block/sdc/queue/scheduler
-	echo 512 > /sys/block/sdc/queue/read_ahead_kb
-	echo 4 > /sys/block/sdc/queue/iosched/writes_starved
-	echo 16 > /sys/block/sdc/queue/iosched/fifo_batch
-	echo 350 > /sys/block/sdc/queue/iosched/sync_read_expire
-	echo 550 > /sys/block/sdc/queue/iosched/sync_write_expire
-	echo 250 > /sys/block/sdc/queue/iosched/async_read_expire
-	echo 450 > /sys/block/sdc/queue/iosched/async_write_expire
-	echo 10 > /sys/block/sdc/queue/iosched/sleep_latency_multiple
+	echo deadline > /sys/block/sdc/queue/scheduler
 
 # Set I/O Scheduler tweaks sdd
 	chmod 644 /sys/block/sdd/queue/scheduler
-	echo maple > /sys/block/sdd/queue/scheduler
-	echo 512 > /sys/block/sdd/queue/read_ahead_kb
-	echo 4 > /sys/block/sdd/queue/iosched/writes_starved
-	echo 16 > /sys/block/sdd/queue/iosched/fifo_batch
-	echo 350 > /sys/block/sdd/queue/iosched/sync_read_expire
-	echo 550 > /sys/block/sdd/queue/iosched/sync_write_expire
-	echo 250 > /sys/block/sdd/queue/iosched/async_read_expire
-	echo 450 > /sys/block/sdd/queue/iosched/async_write_expire
-	echo 10 > /sys/block/sdd/queue/iosched/sleep_latency_multiple
+	echo deadline > /sys/block/sdd/queue/scheduler
 
 # Enable FSYNC
 	echo "N" > /sys/module/sync/parameters/fsync_enabled
@@ -110,10 +86,30 @@ $BB mount -o remount,rw /;
 
 # Don't treat storage as rotational
 	echo 0 > /sys/block/mmcblk0/queue/rotational
-
- # ENTROPY
- echo "128" > /proc/sys/kernel/random/echo_wakeup_threshold
- echo "1344" > /proc/sys/kernel/random/read_wakeup_threshold
+	echo 0 > /sys/block/loop0/queue/rotational
+	echo 0 > /sys/block/loop1/queue/rotational
+	echo 0 > /sys/block/loop2/queue/rotational
+	echo 0 > /sys/block/loop3/queue/rotational
+	echo 0 > /sys/block/loop4/queue/rotational
+	echo 0 > /sys/block/loop5/queue/rotational
+	echo 0 > /sys/block/loop6/queue/rotational
+	echo 0 > /sys/block/loop7/queue/rotational
+	echo 0 > /sys/block/ram0/queue/rotational
+	echo 0 > /sys/block/ram1/queue/rotational
+	echo 0 > /sys/block/ram2/queue/rotational
+	echo 0 > /sys/block/ram3/queue/rotational
+	echo 0 > /sys/block/ram4/queue/rotational
+	echo 0 > /sys/block/ram5/queue/rotational
+	echo 0 > /sys/block/ram6/queue/rotational
+	echo 0 > /sys/block/ram7/queue/rotational
+	echo 0 > /sys/block/ram8/queue/rotational
+	echo 0 > /sys/block/ram9/queue/rotational
+	echo 0 > /sys/block/ram10/queue/rotational
+	echo 0 > /sys/block/ram11/queue/rotational
+	echo 0 > /sys/block/ram12/queue/rotational
+	echo 0 > /sys/block/ram13/queue/rotational
+	echo 0 > /sys/block/ram14/queue/rotational
+	echo 0 > /sys/block/ram15/queue/rotational
 
 # Knox set to 0 on working system
 /sbin/resetprop -n ro.boot.warranty_bit "0"
@@ -157,7 +153,7 @@ su -c 'echo "temporary none" >> /sys/class/scsi_disk/0:0:0:1/cache_type'
 su -c 'echo "temporary none" >> /sys/class/scsi_disk/0:0:0:2/cache_type'
 su -c 'echo "temporary none" >> /sys/class/scsi_disk/0:0:0:3/cache_type'
 
-# "97zipalignOnBoot" 
+# "97zipalignOnBoot"
 for files in `find /data/app/ -name '*.apk'` ; do
 	zipalign -c 4 $files;
 	ZIPCHECK=$?;
