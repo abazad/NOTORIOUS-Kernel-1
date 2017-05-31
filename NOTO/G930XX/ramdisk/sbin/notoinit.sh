@@ -74,15 +74,7 @@ $BB mount -o remount,rw /;
 
 # Set VM Preferences
   echo "0" > /proc/sys/vm/laptop_mode
-	echo "90" > /proc/sys/vm/dirty_ratio
-	echo "70" > /proc/sys/vm/dirty_background_ratio
-	echo "10" > /proc/sys/vm/vfs_cache_pressure
 	echo "1" > /proc/sys/vm/overcommit_memory
-	echo "0" > /proc/sys/vm/panic_on_oom
-	echo "0" > /proc/sys/kernel/panic_on_oops
-	echo "0" > /proc/sys/kernel/panic
-	echo "4096" > /proc/sys/vm/min_free_kbytes
-	echo "0" > /proc/sys/vm/oom_kill_allocating_task
 
 # Don't treat storage as rotational
 	echo 0 > /sys/block/mmcblk0/queue/rotational
