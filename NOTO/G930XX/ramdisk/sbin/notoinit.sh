@@ -145,19 +145,6 @@ su -c 'echo "temporary none" >> /sys/class/scsi_disk/0:0:0:1/cache_type'
 su -c 'echo "temporary none" >> /sys/class/scsi_disk/0:0:0:2/cache_type'
 su -c 'echo "temporary none" >> /sys/class/scsi_disk/0:0:0:3/cache_type'
 
-# "97zipalignOnBoot"
-for files in `find /data/app/ -name '*.apk'` ; do
-	zipalign -c 4 $files;
-	ZIPCHECK=$?;
-	if [ $ZIPCHECK -eq 1 ]; then
-			zipalign -f 4 $files /cache/$(basename $files);
-			if [ -e /cache/$(basename $files) ]; then
-				cp -f -p /cache/$(basename $files) $files
-				rm /cache/$(basename $files)
-			fi
-	fi;
-done;
-
 # Unmount
 $BB mount -t rootfs -o remount,rw rootfs;
 $BB mount -o remount,ro /system;
