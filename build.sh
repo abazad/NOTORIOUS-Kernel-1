@@ -5,7 +5,7 @@
 export MODEL=herolte
 export VARIANT=eur
 export ARCH=arm64
-KERNEL_VERSION="1.5.7"
+KERNEL_VERSION="1.5.8"
 KERNEL_NAME="NOTORIOUS-KERNEL"
 export LOCALVERSION=-${KERNEL_NAME}-v${KERNEL_VERSION}
 export BUILD_CROSS_COMPILE=/home/favus/space/toolchain/aarch64-linux-android-6.3-master/bin/aarch64-linux-android-
@@ -276,23 +276,23 @@ FUNC_BUILD_RAMDISK()
 
 FUNC_BUILD_ZIP()
 {
-	cd $RDIR/NOTO_BUILD
-	rm herolte-$VARIANT.img
+	cd $RDIR/NOTO_BUILD/AROMA/
+	rm kernel/herolte-$VARIANT.img
 	rm ../*.zip
 	case $MODEL in
 	herolte)
 		case $VARIANT in
 		can|duos|eur|xx)
-			mv -f $RDIR/NOTO/G930XX/image-new.img $RDIR/NOTO_BUILD/$MODEL-$VARIANT.img
+			mv -f $RDIR/NOTO/G930XX/image-new.img $RDIR/NOTO_BUILD/AROMA/kernel/$MODEL-$VARIANT.img
 			;;
 		ktt)
-			mv -f $RDIR/NOTO/G930K/image-new.img $RDIR/NOTO_BUILD/$MODEL-$VARIANT.img
+			mv -f $RDIR/NOTO/G930K/image-new.img $RDIR/NOTO_BUILD/AROMA/kernel/$MODEL-$VARIANT.img
 			;;
 		lgt)
-			mv -f $RDIR/NOTO/G930L/image-new.img $RDIR/NOTO_BUILD/$MODEL-$VARIANT.img
+			mv -f $RDIR/NOTO/G930L/image-new.img $RDIR/NOTO_BUILD/AROMA/kernel/$MODEL-$VARIANT.img
 			;;
 		skt)
-			mv -f $RDIR/NOTO/G930S/image-new.img $RDIR/NOTO_BUILD/$MODEL-$VARIANT.img
+			mv -f $RDIR/NOTO/G930S/image-new.img $RDIR/NOTO_BUILD/AROMA/kernel/$MODEL-$VARIANT.img
 			;;
 		*)
 			echo "Unknown variant: $VARIANT"
@@ -303,16 +303,16 @@ FUNC_BUILD_ZIP()
 	hero2lte)
 		case $VARIANT in
 		can|duos|eur|xx)
-			mv -f $RDIR/NOTO/G935XX/image-new.img $RDIR/NOTO_BUILD/$MODEL-$VARIANT.img
+			mv -f $RDIR/NOTO/G935XX/image-new.img $RDIR/NOTO_BUILD/AROMA/kernel/$MODEL-$VARIANT.img
 			;;
 		ktt)
-			mv -f $RDIR/NOTO/G935K/image-new.img $RDIR/NOTO_BUILD/$MODEL-$VARIANT.img
+			mv -f $RDIR/NOTO/G935K/image-new.img $RDIR/NOTO_BUILD/AROMA/kernel/$MODEL-$VARIANT.img
 			;;
 		lgt)
-			mv -f $RDIR/NOTO/G935L/image-new.img $RDIR/NOTO_BUILD/$MODEL-$VARIANT.img
+			mv -f $RDIR/NOTO/G935L/image-new.img $RDIR/NOTO_BUILD/AROMA/kernel/$MODEL-$VARIANT.img
 			;;
 		skt)
-			mv -f $RDIR/NOTO/G935S/image-new.img $RDIR/NOTO_BUILD/$MODEL-$VARIANT.img
+			mv -f $RDIR/NOTO/G935S/image-new.img $RDIR/NOTO_BUILD/AROMA/kernel/$MODEL-$VARIANT.img
 			;;
 		*)
 			echo "Unknown variant: $VARIANT"
