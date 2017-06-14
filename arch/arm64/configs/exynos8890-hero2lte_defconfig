@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 3.18.55 Kernel Configuration
+# Linux/arm64 3.18.57 Kernel Configuration
 #
 CONFIG_ARM64=y
 CONFIG_64BIT=y
@@ -2854,15 +2854,12 @@ CONFIG_LCD_WEAKNESS_CCB=y
 # CONFIG_PANEL_DDI_SPI is not set
 # CONFIG_PANEL_DUALIZATION is not set
 CONFIG_LCD_BURNIN_CORRECTION=y
-<<<<<<< HEAD
 # CONFIG_VDDR_1p5V_ALPM is not set
 # CONFIG_EXYNOS_DECON_8890_DUAL_DISPLAY is not set
 # CONFIG_PANEL_S6E36W0X10 is not set
 # CONFIG_EXYNOS_DECON_DUAL_DSI is not set
 # CONFIG_PANEL_S6E3FA3_FHD is not set
 # CONFIG_PANEL_S6E3HF4_FHD is not set
-=======
->>>>>>> 7cc04e1... linux: 3.18.15
 # CONFIG_FB_SSD1307 is not set
 CONFIG_BACKLIGHT_LCD_SUPPORT=y
 CONFIG_LCD_CLASS_DEVICE=y
