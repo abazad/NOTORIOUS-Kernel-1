@@ -37,105 +37,99 @@ $BB mount -o remount,rw /;
 
 # WakeUp Parameter
  	chmod 644 /sys/module/wakeup/parameters/enable_sensorhub_wl
- 	echo N > /sys/module/wakeup/parameters/enable_sensorhub_wl
+ 	echo "0" > /sys/module/wakeup/parameters/enable_sensorhub_wl
 	chmod 644 /sys/module/wakeup/parameters/enable_ssp_wl
-	echo N > /sys/module/wakeup/parameters/enable_ssp_wl
+	echo "0" > /sys/module/wakeup/parameters/enable_ssp_wl
 	chmod 644 /sys/module/wakeup/parameters/enable_bcmdhd4359_wl
-	echo N > /sys/module/wakeup/parameters/enable_bcmdhd4359_wl
+	echo "0" > /sys/module/wakeup/parameters/enable_bcmdhd4359_wl
 	chmod 644 /sys/module/wakeup/parameters/enable_wlan_wake_wl
-	echo N > /sys/module/wakeup/parameters/enable_wlan_wake_wl
+	echo "0" > /sys/module/wakeup/parameters/enable_wlan_wake_wl
 	chmod 644 /sys/module/wakeup/parameters/enable_bluedroid_timer_wl
-	echo N > /sys/module/wakeup/parameters/enable_bluedroid_timer_wl
+	echo "0" > /sys/module/wakeup/parameters/enable_bluedroid_timer_wl
 	chmod 644 /sys/module/wakeup/parameters/enable_mmc0_detect_wl
-	echo N > /sys/module/wakeup/parameters/enable_mmc0_detect_wl
+	echo "0" > /sys/module/wakeup/parameters/enable_mmc0_detect_wl
 	chmod 644 /sys/module/wakeup/parameters/enable_wlan_ctrl_wake_wl
-	echo N > /sys/module/wakeup/parameters/enable_wlan_ctrl_wake_wl
+	echo "0" > /sys/module/wakeup/parameters/enable_wlan_ctrl_wake_wl
 	chmod 644 /sys/module/wakeup/parameters/enable_wlan_rx_wake_wl
-	echo N > /sys/module/wakeup/parameters/enable_wlan_rx_wake_wl
+	echo "0" > /sys/module/wakeup/parameters/enable_wlan_rx_wake_wl
 	chmod 644 /sys/module/wakeup/parameters/enable_wlan_wd_wake_wl
-	echo N > /sys/module/wakeup/parameters/enable_wlan_wd_wake_wl
+	echo "0" > /sys/module/wakeup/parameters/enable_wlan_wd_wake_wl
 
 # Set I/O Scheduler tweaks mmcblk0
 	chmod 644 /sys/block/mmcblk0/queue/scheduler
-	echo maple > /sys/block/mmcblk0/queue/scheduler
-	echo 2048 > /sys/block/mmcblk0/queue/read_ahead_kb
+	echo "maple" > /sys/block/mmcblk0/queue/scheduler
+	echo "128" > /sys/block/mmcblk0/queue/read_ahead_kb
   chmod 644 /sys/block/mmcblk0/queue/iosched/writes_starved
-	echo 4 > /sys/block/mmcblk0/queue/iosched/writes_starved
+	echo "4" > /sys/block/mmcblk0/queue/iosched/writes_starved
   chmod 644 /sys/block/mmcblk0/queue/iosched/fifo_batch
-	echo 16 > /sys/block/mmcblk0/queue/iosched/fifo_batch
-	echo 350 > /sys/block/mmcblk0/queue/iosched/sync_read_expire
-	echo 550 > /sys/block/mmcblk0/queue/iosched/sync_write_expire
-	echo 250 > /sys/block/mmcblk0/queue/iosched/async_read_expire
-	echo 450 > /sys/block/mmcblk0/queue/iosched/async_write_expire
-	echo 10 > /sys/block/mmcblk0/queue/iosched/sleep_latency_multiple
+	echo "16" > /sys/block/mmcblk0/queue/iosched/fifo_batch
+	echo "350" > /sys/block/mmcblk0/queue/iosched/sync_read_expire
+	echo "550" > /sys/block/mmcblk0/queue/iosched/sync_write_expire
+	echo "250" > /sys/block/mmcblk0/queue/iosched/async_read_expire
+	echo "450" > /sys/block/mmcblk0/queue/iosched/async_write_expire
+	echo "10" > /sys/block/mmcblk0/queue/iosched/sleep_latency_multiple
 
 # Set I/O Scheduler tweaks sda
   chmod 644 /sys/block/sda/queue/scheduler
-	echo maple > /sys/block/sda/queue/scheduler
-	echo 512 > /sys/block/sda/queue/read_ahead_kb
-	echo 4 > /sys/block/sda/queue/iosched/writes_starved
-	echo 16 > /sys/block/sda/queue/iosched/fifo_batch
-	echo 350 > /sys/block/sda/queue/iosched/sync_read_expire
-	echo 550 > /sys/block/sda/queue/iosched/sync_write_expire
-	echo 250 > /sys/block/sda/queue/iosched/async_read_expire
-	echo 450 > /sys/block/sda/queue/iosched/async_write_expire
-	echo 10 > /sys/block/sda/queue/iosched/sleep_latency_multiple
+	echo "maple" > /sys/block/sda/queue/scheduler
+	echo "128" > /sys/block/sda/queue/read_ahead_kb
+        echo "5" > /sys/block/sda/bdi/min_ratio
+        echo "2" > /sys/block/sda/queue/rq_affinity
+	echo "0" > /sys/block/sda/queue/add_random
+	echo "4" > /sys/block/sda/queue/iosched/writes_starved
+	echo "16" > /sys/block/sda/queue/iosched/fifo_batch
+	echo "350" > /sys/block/sda/queue/iosched/sync_read_expire
+	echo "550" > /sys/block/sda/queue/iosched/sync_write_expire
+	echo "250" > /sys/block/sda/queue/iosched/async_read_expire
+	echo "450" > /sys/block/sda/queue/iosched/async_write_expire
+	echo "10" > /sys/block/sda/queue/iosched/sleep_latency_multiple
 
 # Set I/O Scheduler tweaks sdb
 	chmod 644 /sys/block/sdb/queue/scheduler
-  echo deadline > /sys/block/sdb/queue/scheduler
+  echo maple > /sys/block/sdb/queue/scheduler
 
 # Set I/O Scheduler tweaks sdc
 	chmod 644 /sys/block/sdc/queue/scheduler
-	echo deadline > /sys/block/sdc/queue/scheduler
+	echo "maple" > /sys/block/sdc/queue/scheduler
 
 # Set I/O Scheduler tweaks sdd
 	chmod 644 /sys/block/sdd/queue/scheduler
-	echo deadline > /sys/block/sdd/queue/scheduler
+	echo "maple" > /sys/block/sdd/queue/scheduler
 
 # Enable FSYNC
-	echo "N" > /sys/module/sync/parameters/fsync_enabled
+	echo "0" > /sys/module/sync/parameters/fsync_enabled
 
 # Set VM Preferences
   echo "0" > /proc/sys/vm/laptop_mode
 	echo "1" > /proc/sys/vm/overcommit_memory
 
 # Don't treat storage as rotational
-	echo 0 > /sys/block/mmcblk0/queue/rotational
-	echo 0 > /sys/block/loop0/queue/rotational
-	echo 0 > /sys/block/loop1/queue/rotational
-	echo 0 > /sys/block/loop2/queue/rotational
-	echo 0 > /sys/block/loop3/queue/rotational
-	echo 0 > /sys/block/loop4/queue/rotational
-	echo 0 > /sys/block/loop5/queue/rotational
-	echo 0 > /sys/block/loop6/queue/rotational
-	echo 0 > /sys/block/loop7/queue/rotational
-	echo 0 > /sys/block/ram0/queue/rotational
-	echo 0 > /sys/block/ram1/queue/rotational
-	echo 0 > /sys/block/ram2/queue/rotational
-	echo 0 > /sys/block/ram3/queue/rotational
-	echo 0 > /sys/block/ram4/queue/rotational
-	echo 0 > /sys/block/ram5/queue/rotational
-	echo 0 > /sys/block/ram6/queue/rotational
-	echo 0 > /sys/block/ram7/queue/rotational
-	echo 0 > /sys/block/ram8/queue/rotational
-	echo 0 > /sys/block/ram9/queue/rotational
-	echo 0 > /sys/block/ram10/queue/rotational
-	echo 0 > /sys/block/ram11/queue/rotational
-	echo 0 > /sys/block/ram12/queue/rotational
-	echo 0 > /sys/block/ram13/queue/rotational
-	echo 0 > /sys/block/ram14/queue/rotational
-	echo 0 > /sys/block/ram15/queue/rotational
+	echo "0" > /sys/block/mmcblk0/queue/rotational
+	echo "0" > /sys/block/loop0/queue/rotational
+	echo "0" > /sys/block/loop1/queue/rotational
+	echo "0" > /sys/block/loop2/queue/rotational
+	echo "0" > /sys/block/loop3/queue/rotational
+	echo "0" > /sys/block/loop4/queue/rotational
+	echo "0" > /sys/block/loop5/queue/rotational
+	echo "0" > /sys/block/loop6/queue/rotational
+	echo "0" > /sys/block/loop7/queue/rotational
+	echo "0" > /sys/block/ram0/queue/rotational
+	echo "0" > /sys/block/ram1/queue/rotational
+	echo "0" > /sys/block/ram2/queue/rotational
+	echo "0" > /sys/block/ram3/queue/rotational
+	echo "0" > /sys/block/ram4/queue/rotational
+	echo "0" > /sys/block/ram5/queue/rotational
+	echo "0" > /sys/block/ram6/queue/rotational
+	echo "0" > /sys/block/ram7/queue/rotational
+	echo "0" > /sys/block/ram8/queue/rotational
+	echo "0" > /sys/block/ram9/queue/rotational
+	echo "0" > /sys/block/ram10/queue/rotational
+	echo "0" > /sys/block/ram11/queue/rotational
+	echo "0" > /sys/block/ram12/queue/rotational
+	echo "0" > /sys/block/ram13/queue/rotational
+	echo "0" > /sys/block/ram14/queue/rotational
+	echo "0" > /sys/block/ram15/queue/rotational
 
-# Knox set to 0 on working system
-/sbin/resetprop -n ro.boot.warranty_bit "0"
-/sbin/resetprop -n ro.warranty_bit "0"
-
-# Fix some safetynet flags
-/sbin/resetprop -n ro.boot.veritymode "enforcing"
-/sbin/resetprop -n ro.boot.verifiedbootstate "green"
-/sbin/resetprop -n ro.boot.flash.locked "1"
-/sbin/resetprop -n ro.boot.ddrinfo "00000001"
 
 #-------------------------
 # MTWEAKS
