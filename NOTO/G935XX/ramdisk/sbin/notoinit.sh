@@ -31,6 +31,30 @@ $BB mount -o remount,rw /system;
 $BB mount -o remount,rw /data;
 $BB mount -o remount,rw /;
 
+# Set Hotplug Samsung
+	chmod 644 /sys/power/cpuhotplug/enabled
+  echo 0 > /sys/power/cpuhotplug/enabled
+
+# WakeUp Parameter
+ 	chmod 644 /sys/module/wakeup/parameters/enable_sensorhub_wl
+ 	echo N > /sys/module/wakeup/parameters/enable_sensorhub_wl
+	chmod 644 /sys/module/wakeup/parameters/enable_ssp_wl
+	echo N > /sys/module/wakeup/parameters/enable_ssp_wl
+	chmod 644 /sys/module/wakeup/parameters/enable_bcmdhd4359_wl
+	echo N > /sys/module/wakeup/parameters/enable_bcmdhd4359_wl
+	chmod 644 /sys/module/wakeup/parameters/enable_wlan_wake_wl
+	echo N > /sys/module/wakeup/parameters/enable_wlan_wake_wl
+	chmod 644 /sys/module/wakeup/parameters/enable_bluedroid_timer_wl
+	echo N > /sys/module/wakeup/parameters/enable_bluedroid_timer_wl
+	chmod 644 /sys/module/wakeup/parameters/enable_mmc0_detect_wl
+	echo N > /sys/module/wakeup/parameters/enable_mmc0_detect_wl
+	chmod 644 /sys/module/wakeup/parameters/enable_wlan_ctrl_wake_wl
+	echo N > /sys/module/wakeup/parameters/enable_wlan_ctrl_wake_wl
+	chmod 644 /sys/module/wakeup/parameters/enable_wlan_rx_wake_wl
+	echo N > /sys/module/wakeup/parameters/enable_wlan_rx_wake_wl
+	chmod 644 /sys/module/wakeup/parameters/enable_wlan_wd_wake_wl
+	echo N > /sys/module/wakeup/parameters/enable_wlan_wd_wake_wl
+
 # Set I/O Scheduler tweaks mmcblk0
 	chmod 644 /sys/block/mmcblk0/queue/scheduler
 	echo maple > /sys/block/mmcblk0/queue/scheduler
@@ -144,6 +168,9 @@ su -c 'echo "temporary none" >> /sys/class/scsi_disk/0:0:0:0/cache_type'
 su -c 'echo "temporary none" >> /sys/class/scsi_disk/0:0:0:1/cache_type'
 su -c 'echo "temporary none" >> /sys/class/scsi_disk/0:0:0:2/cache_type'
 su -c 'echo "temporary none" >> /sys/class/scsi_disk/0:0:0:3/cache_type'
+
+# Fix SafetyNet by Repulsa
+$BB chmod 640 /sys/fs/selinux/enforce
 
 # Unmount
 $BB mount -t rootfs -o remount,rw rootfs;
