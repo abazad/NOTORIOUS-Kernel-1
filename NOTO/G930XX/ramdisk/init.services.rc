@@ -4,8 +4,6 @@
 # This is a common source of Android security bugs.
 #
 
-on boot
-
 on property:sys.boot_completed=1
     start notoinit
     start notosysinit

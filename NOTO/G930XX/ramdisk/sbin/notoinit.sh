@@ -33,7 +33,7 @@ $BB mount -o remount,rw /;
 
 # Set Hotplug Samsung
 	chmod 644 /sys/power/cpuhotplug/enabled
-  echo 0 > /sys/power/cpuhotplug/enabled
+  echo 1 > /sys/power/cpuhotplug/enabled
 
 # WakeUp Parameter
  	chmod 644 /sys/module/wakeup/parameters/enable_sensorhub_wl
