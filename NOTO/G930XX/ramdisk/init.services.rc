@@ -5,15 +5,15 @@
 #
 
 on boot
-    start notoinit
 
 on property:sys.boot_completed=1
+    start notoinit
     start notosysinit
     start wakelock
 
 service notoinit /sbin/notoinit.sh
     user root
-    seclabel u:r:su:s0
+    seclabel u:r:init:s0
     oneshot
     disabled
 
