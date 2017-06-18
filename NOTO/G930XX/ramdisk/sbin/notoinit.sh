@@ -37,28 +37,28 @@ $BB mount -o remount,rw /;
 
 # WakeUp Parameter
  	chmod 644 /sys/module/wakeup/parameters/enable_sensorhub_wl
- 	echo "0" > /sys/module/wakeup/parameters/enable_sensorhub_wl
+ 	echo "N" > /sys/module/wakeup/parameters/enable_sensorhub_wl
 	chmod 644 /sys/module/wakeup/parameters/enable_ssp_wl
-	echo "0" > /sys/module/wakeup/parameters/enable_ssp_wl
+	echo "N" > /sys/module/wakeup/parameters/enable_ssp_wl
 	chmod 644 /sys/module/wakeup/parameters/enable_bcmdhd4359_wl
-	echo "0" > /sys/module/wakeup/parameters/enable_bcmdhd4359_wl
+	echo "N" > /sys/module/wakeup/parameters/enable_bcmdhd4359_wl
 	chmod 644 /sys/module/wakeup/parameters/enable_wlan_wake_wl
-	echo "0" > /sys/module/wakeup/parameters/enable_wlan_wake_wl
+	echo "N" > /sys/module/wakeup/parameters/enable_wlan_wake_wl
 	chmod 644 /sys/module/wakeup/parameters/enable_bluedroid_timer_wl
-	echo "0" > /sys/module/wakeup/parameters/enable_bluedroid_timer_wl
+	echo "N" > /sys/module/wakeup/parameters/enable_bluedroid_timer_wl
 	chmod 644 /sys/module/wakeup/parameters/enable_mmc0_detect_wl
-	echo "0" > /sys/module/wakeup/parameters/enable_mmc0_detect_wl
+	echo "N" > /sys/module/wakeup/parameters/enable_mmc0_detect_wl
 	chmod 644 /sys/module/wakeup/parameters/enable_wlan_ctrl_wake_wl
-	echo "0" > /sys/module/wakeup/parameters/enable_wlan_ctrl_wake_wl
+	echo "N" > /sys/module/wakeup/parameters/enable_wlan_ctrl_wake_wl
 	chmod 644 /sys/module/wakeup/parameters/enable_wlan_rx_wake_wl
-	echo "0" > /sys/module/wakeup/parameters/enable_wlan_rx_wake_wl
+	echo "N" > /sys/module/wakeup/parameters/enable_wlan_rx_wake_wl
 	chmod 644 /sys/module/wakeup/parameters/enable_wlan_wd_wake_wl
-	echo "0" > /sys/module/wakeup/parameters/enable_wlan_wd_wake_wl
+	echo "N" > /sys/module/wakeup/parameters/enable_wlan_wd_wake_wl
 
 # Set I/O Scheduler tweaks mmcblk0
 	chmod 644 /sys/block/mmcblk0/queue/scheduler
 	echo "maple" > /sys/block/mmcblk0/queue/scheduler
-	echo "128" > /sys/block/mmcblk0/queue/read_ahead_kb
+	echo "512" > /sys/block/mmcblk0/queue/read_ahead_kb
   chmod 644 /sys/block/mmcblk0/queue/iosched/writes_starved
 	echo "4" > /sys/block/mmcblk0/queue/iosched/writes_starved
   chmod 644 /sys/block/mmcblk0/queue/iosched/fifo_batch
@@ -72,7 +72,7 @@ $BB mount -o remount,rw /;
 # Set I/O Scheduler tweaks sda
   chmod 644 /sys/block/sda/queue/scheduler
 	echo "maple" > /sys/block/sda/queue/scheduler
-	echo "128" > /sys/block/sda/queue/read_ahead_kb
+	echo "256" > /sys/block/sda/queue/read_ahead_kb
         echo "5" > /sys/block/sda/bdi/min_ratio
         echo "2" > /sys/block/sda/queue/rq_affinity
 	echo "0" > /sys/block/sda/queue/add_random
@@ -97,7 +97,7 @@ $BB mount -o remount,rw /;
 	echo "maple" > /sys/block/sdd/queue/scheduler
 
 # Enable FSYNC
-	echo "0" > /sys/module/sync/parameters/fsync_enabled
+	echo "N" > /sys/module/sync/parameters/fsync_enabled
 
 # Set VM Preferences
   echo "0" > /proc/sys/vm/laptop_mode
