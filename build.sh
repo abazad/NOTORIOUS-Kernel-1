@@ -5,7 +5,7 @@
 export MODEL=herolte
 export VARIANT=eur
 export ARCH=arm64
-KERNEL_VERSION="1.6"
+KERNEL_VERSION="1.6.1"
 KERNEL_NAME="NOTORIOUS-KERNEL"
 export LOCALVERSION=-${KERNEL_NAME}-v${KERNEL_VERSION}
 export BUILD_CROSS_COMPILE=/home/favus/space/toolchain/aarch64-linux-android-6.3-master/bin/aarch64-linux-android-
